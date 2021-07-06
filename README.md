@@ -10,7 +10,7 @@ Clone o repositório ou faça um fork para a sua conta do GitHub, para que possa
 
 ## Desafio Técnico - Projeto e Arquitetura de um Serviço
 
-**Disclaimer Inicial**: Não é necessário (**e nem esperado!**) que você implemente um código funcional para esta tarefa!!!
+**Disclaimer Inicial**: Não é necessário (**e nem esperado!**) que você implemente um código funcional para este desafio!!!
 
 O importante é que você saiba estruturar e projetar os componentes do seu código; explicar quais aspectos devem ser levados em consideração; as tecnologias de suporte que poderiam ser utilizadas, de que forma elas se comunicariam com o Django e com que fim; possíveis problemas e limitações da abordagem escolhida; entre outras questões relativas ao processo de design da arquitetura do serviço.
 
@@ -51,9 +51,9 @@ A partir desse ponto, você já deve possuir um esqueleto/projeto bem estruturad
 
 - 7) Ao analisar o serviço em produção, você nota que a maioria dos requests são feitos para um conjunto pequeno de `id`s. Nos últimos 7 dias, 80% dos requests, por exemplo, são feitos para o documento com parâmetro `id=1000`. Ao indagar a área de negócios, você descobre que esse comportamento é normal, com um ou mais documentos recebendo muita atenção de tempos em tempos - hoje é o caso do `id=1000`, mas semana que vem poderia ser o `id=1500`. Com essa informação em mãos, você faria alguma modificação no serviço e/ou nas tecnologias utilizadas para o deploy de forma a otimizá-lo? Por quê?
 
-- 8) Por último: suponha que o "Fulano de Tal" esteja sendo investigado pelo MP. Uma demanda foi feita para implementarmos uma funcionalidade que busque, utilizando o log do nosso serviço, os usuários que tiveram acesso a informações de tramitação de documentos em que o "Fulano de Tal" aparece. O texto completo das tramitações está presente na resposta XML vinda do serviço SOAP do TJRJ, como explicitado no ponto 3). Qual abordagem você utilizaria para fazer a busca da string dentro dos textos completos das tramitações?
+- 8) Por último: suponha que o "Fulano de Tal" esteja sendo investigado pelo MP. Uma demanda foi feita para implementarmos uma funcionalidade que busque, utilizando o log do nosso serviço, os usuários que tiveram acesso a informações de tramitação de documentos em que o "Fulano de Tal" aparece. Considere que um colega seu começou a tarefa, e já implementou algumas funcionalidades, com base no log que você implementou. No entanto, uma das etapas inclui percorrer o log inteiro, buscando no texto completo dos documentos (ou seja, o texto do campo `<doc>` do XML) uma string de busca (ex.: "Fulano de Tal"), e ele pediu sua ajuda. Qual abordagem você sugeriria que seja feita para realizar esse full text search dentro dos documentos das tramitações?
 
-**Lembre-se: não é necessário nem esperado que você escreva um código funcional!** Estamos interessados na sua capacidade de projetar um serviço com múltiplas partes! Por isso, não esqueça de fornecer o máximo de detalhes sobre as abordagens que escolher, os motivos que fizeram você escolher essa abordagem - inclusive podendo citar experiências passadas -, tecnologias utilizadas, entre outros.
+**Lembre-se: não é necessário nem esperado que você escreva um código funcional, é permitido inclusive que utilize pseudo-código se desejar!** Estamos interessados na sua capacidade de projetar um serviço com múltiplas partes! Por isso, não esqueça de fornecer o máximo de detalhes sobre as abordagens que escolher, os motivos que fizeram você escolher essa abordagem - inclusive podendo citar experiências passadas -, tecnologias utilizadas, entre outros.
 
 ## Entrega
 
