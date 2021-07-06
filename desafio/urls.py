@@ -1,10 +1,6 @@
 from django.urls import path
 
-from desafio.views import (
-    LocalRegistradoView,
-)
+# from desafio.views import ...
 
 
-urlpatterns = [
-    path('locais/', LocalRegistradoView.as_view(), name='locais-view')
-]
+# urlpatterns = []

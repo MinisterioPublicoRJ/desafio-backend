@@ -1,64 +1,64 @@
 # Desafio MPRJ para Backend
 
-Este repositório contém questões e códigos referentes ao desafio para vaga de desenvolvedor backend Python/Django na GADG/MPRJ.
+Este repositório contém questões e códigos referentes ao desafio para vaga de desenvolvedor backend sênior Python/Django na GADG/MPRJ.
 
-Este desafio é constituido de 3 etapas:
+Este desafio é constituido de um desafio técnico voltado para a definição de um projeto e arquitetura de um serviço.
 
-- Perguntas dissertativas sobre aspectos diversos de código e tomada de decisão;
-- Desafio técnico para implementação de um endpoint em uma API Rest;
-- Desafio de revisão de Pull Request.
-
-Sinta-se à vontade para realizar as etapas na ordem que preferir!
-
-Clone o repositório ou faça um fork para a sua conta do GitHub, com as branches "main" e "feature_colega", para que possa trabalhar sem problemas. Ao terminar, deixe-o público para que possamos visualizar e avaliar o seu trabalho!
+Clone o repositório ou faça um fork para a sua conta do GitHub, para que possa trabalhar sem problemas. Ao terminar, coloque-o como público ou nos dê acesso para que possamos visualizar e avaliar o seu trabalho!
 
 ---------
 
-## Perguntas dissertativas
+## Desafio Técnico - Projeto e Arquitetura de um Serviço
 
-O arquivo etapa1_perguntas.txt possui algumas perguntas que gostaríamos que respondesse! Dê uma olhada no arquivo e coloque suas respostas logo abaixo de cada questão.
+**Disclaimer Inicial**: Não é necessário (**e nem esperado!**) que você implemente um código funcional para esta tarefa!!!
 
----------
+O importante é que você saiba estruturar e projetar os componentes do seu código; explicar quais aspectos devem ser levados em consideração; as tecnologias de suporte que poderiam ser utilizadas, de que forma elas se comunicariam com o Django e com que fim; possíveis problemas e limitações da abordagem escolhida; entre outras questões relativas ao processo de design da arquitetura do serviço.
 
-## Desafio Técnico - Implementação de um endpoint
+A estrutura básica do código é fornecida **APENAS** para que você tenha uma base onde trabalhar e organizar suas ideias, fazer um esqueleto das suas classes e componentes, e separá-los em módulos distintos da forma que preferir.
 
-A XY Inc. é uma empresa especializada na produção de excelentes receptores GPS (Global Positioning System). A diretoria está empenhada em lançar um dispositivo inovador que promete auxiliar pessoas na localização de locais registrados no sistema (LRs), e precisa muito de sua ajuda. Você foi contratado para desenvolver a plataforma que fornecerá toda a inteligência ao dispositivo! Esta plataforma deve ser baseada em serviços REST, de forma a flexibilizar a integração.
+Dito isso, considere o seguinte cenário fictício:
 
-Atualmente, já estão disponíveis serviços para cadastrar novos pontos de interesse, e para listar os pontos de interesse já cadastrados. Ambos podem ser acessados pelo endpoint '/locais', através dos métodos POST e GET. Sua implementação é feita pela LocalRegistradoView, presente no arquivo `desafio/views.py`, e utilizam uma view genérica do django rest framework para este fim.
+Os membros do Ministério Público do Rio de Janeiro (MPRJ) precisam, diariamente, acompanhar a tramitação de seus processos no Tribunal de Justiça do Rio de Janeiro (TJRJ). Com isso em mente, uma demanda foi feita para a implementação de uma aplicação que auxilie os membros nessa tarefa. Um serviço em uma API Rest deverá ser feito, de forma que realize as seguintes tarefas:
 
-Construa um serviço para listar LRs por proximidade. Este serviço receberá uma coordenada X e uma coordenada Y, especificando um ponto de referência, bem como uma distância máxima (d-max) em metros. O serviço deverá retornar todos os LRs da base de dados que estejam a uma distância menor ou igual a d-max a partir do ponto de referência.
+- 1) O endpoint do serviço deverá receber um parâmetro inteiro positivo `id`, correspondente ao número de um documento.
 
-Exemplo de Base de Dados:
+- 2) Uma consulta deverá ser feita utilizando `id`, em um banco relacional externo, obtendo um conjunto de dados relativos a esse documento, `dados_documento`. Caso necessário, considere que esse banco é acessível pela rede interna, com um HOST, PORT, USER e PASSWORD já definidos. Não se preocupe com o formato dos dados no banco ou outras questões de implementação da consulta.
 
-- 'Lanchonete' (x=27, y=12)
-- 'Posto' (x=31, y=18)
-- 'Joalheria' (x=15, y=12)
-- 'Floricultura' (x=19, y=21)
-- 'Pub' (x=12, y=8)
-- 'Supermercado' (x=23, y=6)
-- 'Churrascaria' (x=28, y=2)
+- 3) Dentro de `dados_documento`, há uma coluna com um número `id_tjrj`, que deverá ser utilizado para chamar um serviço SOAP externo, disponibilizado pelo TJRJ. Este serviço fornece um objeto XML com a tramitação do documento desejado `tramitacao_documento`. Essa informação, `tramitacao_documento`, será enviada como resposta do nosso endpoint. Caso ache relevante considerar no seu projeto, considere que possuimos um ACCESS_TOKEN, utilizado para acessar esse serviço SOAP. Também caso ache relevante, considere que o XML da resposta venha no seguinte formato:
 
-Exemplo de Uso:
+```
+<TRAMITACOES>
+<TRAMITACAO idtram="1">
+<data>01/01/1999</data>
+<doc>Texto falando sobre qual foi a tramitação, transcrições de ata, etc etc</doc>
+</TRAMITACAO>
+<TRAMITACAO idtram="2">
+<data>02/01/1999</data>
+<doc>Texto falando sobre qual foi a tramitação, transcrições de ata, etc etc</doc>
+</TRAMITACAO>
+</TRAMITACOES>
+```
 
-Dado o ponto de referência (x=20, y=10) indicado pelo receptor GPS, e uma distância máxima de 10 metros, o serviço deve retornar os seguintes LRs:
 
-- Lanchonete
-- Joalheria
-- Pub
-- Supermercado
+- 4) Outra necessidade, é que um log do serviço deverá ser guardado, com informações diversas sobre: o request realizado; o usuário que o realizou; assim como os resultados obtidos do TJRJ. Considere que o serviço do TJRJ pode sofrer alterações no futuro (por exemplo, a resposta XML pode ser extendida no futuro e vir com um número maior de informações), de forma que o formato dos dados no log pode mudar, dependendo da forma que escolher estruturar esse log.
 
-Não esqueça de fazer um ou mais testes para o seu endpoint!
+- 5) Suponha que, ao fazer um request para esse endpoint, seja guardado um par `(usuário, id_tjrj)`. De tempos em tempos, a nossa aplicação deverá consultar o serviço SOAP do TJRJ para verificar possíveis mudanças ocorridas na tramitação do documento associado, desde a última consulta. Caso tenha havido mudanças, o nosso serviço deverá disparar o envio de um email para o usuário, de forma assíncrona, alertando-o que houve mudanças no documento.
+**OBS**: Não se sinta preso(a) ao Django! Caso julgue que essa tarefa é melhor realizada utilizando outras tecnologias em conjunto para sub-tarefas específicas, explicite isso no seu projeto!
 
-OBS: É esperado que "x", "y" e "d-max" sejam sempre inteiros com valor >= 0. No entanto, o usuário da API pode acabar enviando valores diversos por engano. Leve isso em consideração ao pensar em tratamentos de erro.
+- 6) O nosso endpoint acessa dados sensíveis! Assim, ele não pode estar aberto para todas as pessoas que conheçam sua URL. Apenas usuários autorizados devem conseguir utilizá-lo. Pense numa abordagem de autenticação e/ou autorização que satisfaça esse requisito do serviço. Não esqueça de dizer por que escolheu essa abordagem!
 
-- Pergunta 1 (responda no espaço comentado reservado no arquivo `desafio/views.py`):
+A partir desse ponto, você já deve possuir um esqueleto/projeto bem estruturado para o seu serviço, contemplando essas funcionalidades essenciais! Sua equipe então configura e faz o deploy de um servidor em produção. Algumas situações surgem a partir daí:
 
-Suponha que, ao colocar o serviço em produção e analisando o comportamento dos usuários, você percebe que os requests para (x=20, y=10) correspondam a 90% dos requests feitos para esse endpoint, com os outros 10% distribuidos entre outros valores. Com essa informação em mãos, o que poderia ser feito para otimizar a performance do endpoint?
+- 7) Ao analisar o serviço em produção, você nota que a maioria dos requests são feitos para um conjunto pequeno de `id`s. Nos últimos 7 dias, 80% dos requests, por exemplo, são feitos para o documento com parâmetro `id=1000`. Ao indagar a área de negócios, você descobre que esse comportamento é normal, com um ou mais documentos recebendo muita atenção de tempos em tempos - hoje é o caso do `id=1000`, mas semana que vem poderia ser o `id=1500`. Com essa informação em mãos, você faria alguma modificação no serviço e/ou nas tecnologias utilizadas para o deploy de forma a otimizá-lo? Por quê?
 
-----------
+- 8) Por último: suponha que o "Fulano de Tal" esteja sendo investigado pelo MP. Uma demanda foi feita para implementarmos uma funcionalidade que busque, utilizando o log do nosso serviço, os usuários que tiveram acesso a informações de tramitação de documentos em que o "Fulano de Tal" aparece. O texto completo das tramitações está presente na resposta XML vinda do serviço SOAP do TJRJ, como explicitado no ponto 3). Qual abordagem você utilizaria para fazer a busca da string dentro dos textos completos das tramitações?
 
-## Desafio Pull Request
+**Lembre-se: não é necessário nem esperado que você escreva um código funcional!** Estamos interessados na sua capacidade de projetar um serviço com múltiplas partes! Por isso, não esqueça de fornecer o máximo de detalhes sobre as abordagens que escolher, os motivos que fizeram você escolher essa abordagem - inclusive podendo citar experiências passadas -, tecnologias utilizadas, entre outros.
 
-No repositório, há uma branch chamada "feature_colega", onde um(a) colega de trabalho implementou uma nova feature, e pediu para que você a revisasse. Revise o código deste(a) companheiro(a) de trabalho, sugerindo modificações e fazendo comentários onde julgar necessário.
+## Entrega
 
-OBS: Caso o PR não esteja aberto de "feature_colega" para "master", abrir um PR pelo GitHub para que o processo fique mais simples.
+A entrega do desafio pode ser feita de algumas maneiras diferentes. *De preferência*, seria interessante que fizesse um esqueleto das suas classes e componentes, utilizando-se de comentários no seu código para as explicações das escolhas que fizer, onde entraria a comunicação com outras tecnologias, etc.
+
+Além disso, colocamos um arquivo `respostas_e_comentarios.txt`, onde poderá fazer anotações e comentários relativos a cada um dos pontos do desafio, seja como um rascunho/apanhado geral, seja para mencionar pontos que possam ficar estranhos como comentários no código.
+
+Caso prefira e julgue mais fácil de se expressar, também sinta-se à vontade para fazer um desenho do seu projeto.

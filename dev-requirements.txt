@@ -1,5 +1,2 @@
 -r requirements.txt
 flake8
-pytest==5.4.3
-pytest-cov
-pytest-django
