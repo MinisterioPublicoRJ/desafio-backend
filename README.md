@@ -10,7 +10,7 @@ Este desafio é constituido de 3 etapas:
 
 Sinta-se à vontade para realizar as etapas na ordem que preferir!
 
-Clone o repositório ou faça um fork para a sua conta do GitHub,
+Clone o repositório ou faça um fork para a sua conta do GitHub, com as branches "main" e "feature_colega", para que possa trabalhar sem problemas. Ao terminar, deixe-o público para que possamos visualizar e avaliar o seu trabalho!
 
 ---------
 
