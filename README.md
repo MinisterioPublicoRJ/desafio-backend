@@ -14,7 +14,11 @@ Clone o repositório ou faça um fork para a sua conta do GitHub, para que possa
 
 O importante é que você saiba estruturar e projetar os componentes do seu código; explicar quais aspectos devem ser levados em consideração; as tecnologias de suporte que poderiam ser utilizadas, de que forma elas se comunicariam com o Django e com que fim; possíveis problemas e limitações da abordagem escolhida; entre outras questões relativas ao processo de design da arquitetura do serviço.
 
-A estrutura básica do código é fornecida **APENAS** para que você tenha uma base onde trabalhar e organizar suas ideias, fazer um esqueleto das suas classes e componentes, e separá-los em módulos distintos da forma que preferir.
+A estrutura básica do código é fornecida **APENAS** para que você tenha uma base onde trabalhar e organizar suas ideias, fazer um esqueleto das suas classes e componentes, e separá-los em módulos distintos da forma que preferir. Não é obrigatório utilizar todos os arquivos fornecidos, e nem mesmo utilizar a mesma estrutura de arquivos. Sinta-se à vontade para modificar tudo de acordo com o seu projeto.
+
+Em nenhum momento da avaliação será utilizado como critério o fato do código rodar ou não. Por isso, não se preocupe com problemas de sintaxe ou de nome de métodos ou o que quer que seja nesse sentido. Caso não lembre exatamente do nome de uma biblioteca e/ou método que faça o que você precisa, é inclusive permitido que se utilize de pseudo-código, desde que isso ajude você a expressar os conceitos necessários para realizar a dada tarefa.
+
+Imagine que o objetivo é simular o design de arquitetura de um serviço para uma demanda de negócio! Sinta-se livre para usar a criatividade para desenhar uma arquitetura que atenda às necessidades da demanda!
 
 Dito isso, considere o seguinte cenário fictício:
 
@@ -62,3 +66,5 @@ A entrega do desafio pode ser feita de algumas maneiras diferentes. *De preferê
 Além disso, colocamos um arquivo `respostas_e_comentarios.txt`, onde poderá fazer anotações e comentários relativos a cada um dos pontos do desafio, seja como um rascunho/apanhado geral, seja para mencionar pontos que possam ficar estranhos como comentários no código.
 
 Caso prefira e julgue mais fácil de se expressar, também sinta-se à vontade para fazer um desenho do seu projeto.
+
+Não se esqueça: seja criativo, divirta-se, e boa sorte!
